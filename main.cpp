@@ -4,114 +4,158 @@
 #include <string>
 using namespace std;
 
-typedef void (*newType)();
-
 struct CELL {
 	char str[128];
-	//struct CELL* prev = nullptr;
+	struct CELL* prev = nullptr;
 	struct CELL* next = nullptr;
 };
 
-void create(CELL *currentCell,const char* str);
-void index(CELL *endCell);
-CELL* getInsertListAddress(CELL *Cell,int ite);
-
-string sellList[3] = {
-		"apple",
-		"banana",
-		"pine"
-};
+void create(CELL* currentCell, const char* str);
+void Chenge(CELL* currentCell, const char* str);
+void index(CELL* endCell);
+CELL* getInsertListAddress(CELL* Cell, int ite);
+int CellNum(CELL* endCell);
 
 int menuNum = 0;
 
-//void MainMenu();
-//void ListViewMenu();
-//void ListView();
-//void EditFactor();
-//void AddFactor();
-//void SubFactor();
-
-//newType pFunc = &MainMenu;
-
 int main() {
 
-	//int iterator;
-	//int inputValue;
-	//CELL* indsertCell;
+	int iterator;
+	int inputValue;
+	CELL* indsertCell;
+
 	char str[128];
 	CELL head;
 	head.next = nullptr;
-	//head.prev = nullptr;
+	head.prev = nullptr;
 
 	while (true) {
-		printf("ï∂éöÇì¸óÕ\n");
-		scanf_s("%s", str,sizeof(head.str));
+		printf("[óvëfÇÃëÄçÏ]\n");
+		printf("1.óvëfÇÃï\é¶\n");
+		printf("2.óvëfÇÃï“èW\n");
+		printf("3.óvëfÇÃí«â¡\n");
+		printf("4.óvëfÇÃçÌèú\n");
+		scanf_s("%d", &menuNum);
+		system("cls");
+		switch (menuNum)
+		{
+		case 1:
+			printf("[óvëfÇÃï\é¶]\n");
+			printf("1.óvëfÇÃàÍóóï\é¶\n");
+			printf("9.óvëfëÄçÏÇ…ñﬂÇÈ\n");
 
-		create(&head, str);
+			scanf_s("%d", &menuNum);
+			system("cls");
 
-		index(&head);
+			switch (menuNum)
+			{
+			case 1:
+				index(&head);
+				printf("------------------------------\n");
+				printf("óvëfêîÅ@: %d\n", CellNum(&head));
 
-		//pFunc();
+				system("pause");
+				system("cls");
+				break;
 
-		//printf("âΩî‘ñ⁄ÇÃÉZÉãÇÃå„ÇÎÇ…ë}ì¸Ç∑ÇÈÇ©\n");
-		//scanf_s("%d", &iterator);
+			case 9:
+				system("cls");
+				break;
 
-		//printf("ë}ì¸Ç∑ÇÈílÇì¸óÕÇµÇƒÇ≠ÇæÇ≥Ç¢\n");
-		//scanf_s("%d", &inputValue);
+			default:
+				break;
+			}
+			break;
 
-		//indsertCell = getInsertListAddress(&head,iterator);
-		//create(indsertCell, iterator);
+		case 2:
+			printf("âΩî‘ñ⁄ÇÃÉZÉãÇïœçXÇ∑ÇÈÇ©\n");
+			scanf_s("%d", &iterator);
 
-		//index(&head);
+			printf("ï∂éöÇì¸óÕ\n");
+			scanf_s("%s", str, sizeof(head.str));
+
+
+
+			system("cls");
+			break;
+
+		case 3:
+			printf("âΩî‘ñ⁄ÇÃÉZÉãÇÃå„ÇÎÇ…ì¸óÕÇ∑ÇÈÇ©\n");
+			scanf_s("%d", &iterator);
+
+			printf("ï∂éöÇì¸óÕ\n");
+			scanf_s("%s", str, sizeof(head.str));
+
+			indsertCell = getInsertListAddress(&head, iterator);
+			create(indsertCell, str);
+
+			index(&head);
+			system("cls");
+			break;
+
+		case 4:
+
+			system("cls");
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	return 0;
 }
 
-void create(CELL* currentCell,const char* str)
+void create(CELL* currentCell, const char* str)
 {
 	CELL* newCell;
 	newCell = (CELL*)malloc(sizeof(CELL));
 	strcpy_s(newCell->str, sizeof(newCell->str), str);
-	//newCell->prev = currentCell;
-	newCell->next = nullptr;
+	newCell->prev = currentCell;
+	newCell->next = currentCell->next;
 
-	while (currentCell->next != nullptr) {
-		currentCell = currentCell->next;
+	if (currentCell->next) {
+		CELL* nextCell = currentCell->next;
+		nextCell->prev = newCell;
 	}
-	//if (currentCell->next) {
-	//	CELL* nextCell = currentCell->next;
-	//	//nextCell->prev = newCell;
-	//}
 	currentCell->next = newCell;
+}
+
+void Chenge(CELL* currentCell, const char* str)
+{
+	strcpy_s(currentCell->str, sizeof(currentCell->str), str);
 }
 
 void index(CELL* endCell)
 {
 	int no = 1;
-	while(endCell->next != nullptr) {
+	while (endCell->next != nullptr) {
 		endCell = endCell->next;
-		printf("%d :", no);
-		//printf("%p", endCell->prev);
-		printf("%s \n", endCell->str);
-		//printf("(%p)", endCell);
-		//printf("%p\n", endCell->next);
+		printf("%d : ", no);
+		printf("%s\n", endCell->str);
 		no++;
 	}
 }
 
 CELL* getInsertListAddress(CELL* Cell, int ite)
 {
-	//for (int i = 0; i < iterator; i++) {
-	//	if (endCELL->next) {
-	//		endCELL = endCELL->next;
-	//	}
-	//	else {
-	//		break;
-	//	}
-	//}
-	//return endCELL;
-	return nullptr;
+	for (int i = 0; i < ite; i++) {
+		if (Cell->next) {
+			Cell = Cell->next;
+		}
+		else {
+			break;
+		}
+	}
+	return Cell;
+}
+
+int CellNum(CELL* endCell) {
+	int num = 0;
+	while (endCell->next != nullptr) {
+		num++;
+	}
+	return num;
 }
 
 //void MainMenu()
@@ -128,18 +172,22 @@ CELL* getInsertListAddress(CELL* Cell, int ite)
 //	{
 //	case 1:
 //		pFunc = &ListViewMenu;
+//		system("cls");
 //		break;
 //
 //	case 2:
 //		pFunc = &EditFactor;
+//		system("cls");
 //		break;
 //
 //	case 3:
 //		pFunc = &AddFactor;
+//		system("cls");
 //		break;
 //
 //	case 4:
 //		pFunc = &SubFactor;
+//		system("cls");
 //		break;
 //
 //	default:
@@ -159,10 +207,12 @@ CELL* getInsertListAddress(CELL* Cell, int ite)
 //	{
 //	case 1:
 //		pFunc = &ListView;
+//		system("cls");
 //		break;
 //
 //	case 9:
 //		pFunc = &MainMenu;
+//		system("cls");
 //		break;
 //
 //	default:
@@ -183,10 +233,12 @@ CELL* getInsertListAddress(CELL* Cell, int ite)
 //	{
 //	case 1:
 //		pFunc = &ListViewMenu;
+//		system("cls");
 //		break;
 //
 //	case 2:
 //		pFunc = &MainMenu;
+//		system("cls");
 //		break;
 //
 //	default:
@@ -207,7 +259,7 @@ CELL* getInsertListAddress(CELL* Cell, int ite)
 //	scanf_s("%10s", newWord, 11);
 //
 //	pFunc = &MainMenu;
-//
+//	system("cls");
 //}
 //
 //void AddFactor()
@@ -223,7 +275,7 @@ CELL* getInsertListAddress(CELL* Cell, int ite)
 //	scanf_s("%10s", newWord,11);
 //
 //	pFunc = &MainMenu;
-//
+//	system("cls");
 //}
 //
 //void SubFactor()
@@ -235,4 +287,5 @@ CELL* getInsertListAddress(CELL* Cell, int ite)
 //	printf("è¡ÇµÇΩÉèÅ[Éh\n");
 //
 //	pFunc = &MainMenu;
+//	system("cls");
 //}
