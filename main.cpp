@@ -138,6 +138,9 @@ int main() {
 			indsertCell = getInsertListAddress(&head, iterator);
 			create(indsertCell, str);
 
+			if (iterator > CellNum(&head)) {
+				iterator = CellNum(&head) - 1;
+			}
 			printf("—v‘f\"%s\"‚ª%d”Ô–Ú‚É‘}“ü‚³‚ê‚Ü‚µ‚½\n", str, iterator);
 			system("pause");
 			system("cls");
@@ -231,7 +234,7 @@ void Chenge(CELL* currentCell, const char* str)
 void Delete(CELL* currentCell)
 {
 	currentCell->next = currentCell->next->next;
-	currentCell->next->next->prev = currentCell;
+	currentCell->next->prev = currentCell;
 }
 
 void DeleteChangeNull(CELL* currentCell)
