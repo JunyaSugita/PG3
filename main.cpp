@@ -1,4 +1,5 @@
 #include "DxLib.h"
+#include "Enemy.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "LE2A_08_スギタ_ジュンヤ";
@@ -43,6 +44,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ゲームループで使う変数の宣言
 
+	Enemy enemy1;
+	Enemy enemy2;
+	Enemy enemy3;
+
+	enemy1.Initialize(Vector2(100, 200));
+	enemy2.Initialize(Vector2(300, 200));
+	enemy3.Initialize(Vector2(500, 200));
+
 	// 最新のキーボード情報用
 	char keys[256] = { 0 };
 
@@ -65,8 +74,15 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
+		if (keys[KEY_INPUT_SPACE]) {
+			//敵1を倒す
+			enemy1.Kill();
+		}
 		
 		// 描画処理
+		enemy1.Draw();
+		enemy2.Draw();
+		enemy3.Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
