@@ -1,5 +1,4 @@
 #include "DxLib.h"
-#include "SceneManager.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "LE2A_08_スギタ_ジュンヤ";
@@ -43,7 +42,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 
 	// ゲームループで使う変数の宣言
-	SceneManager* sceneM = SceneManager::GetInstans();
 
 	// 最新のキーボード情報用
 	char keys[256] = { 0 };
@@ -67,28 +65,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
-		if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
-			switch (sceneM->GetScene())
-			{
-			case Title:
-				sceneM->ChangeNextScene(NewGame);
-				break;
-			case NewGame:
-				sceneM->ChangeNextScene(GamePlay);
-				break;
-			case GamePlay:
-				sceneM->ChangeNextScene(GameClear);
-				break;
-			case GameClear:
-				sceneM->ChangeNextScene(Title);
-				break;
-			default:
-				break;
-			}
-		}
-
+		
 		// 描画処理
-		sceneM->DrawScene();
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
