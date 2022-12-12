@@ -6,7 +6,7 @@
 class Enemy
 {
 public:
-	static bool isDead;
+	static bool isAlive;
 
 public:
 	void Initialize(Vector2 pos);
