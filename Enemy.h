@@ -4,6 +4,13 @@
 #include "Bullet.h"
 #pragma once
 
+enum class PHASE
+{
+	APPROACH,
+	SHOT,
+	SECESSION,
+};
+
 class Enemy
 {
 public:
@@ -20,12 +27,14 @@ public:
 	Bullet bullet;
 
 private:
-	void (Enemy::* pFunc)();
+	static void (Enemy::* pFunc[])();
+
 
 private:
 	Vector2 pos_;
 	float r_;
 	float speed_;
 	bool isDead_;
+	PHASE phase_;
 };
 

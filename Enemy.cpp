@@ -1,18 +1,25 @@
 #include "Enemy.h"
 #include "time.h"
 
+void (Enemy::* Enemy::pFunc[])() = {
+	&Enemy::Approach,
+	&Enemy::Shot,
+	&Enemy::Secession,
+};
+
+
 void Enemy::Initialize(Vector2 pos)
 {
 	pos_ = pos;
 	isDead_ = false;
 	r_ = 12;
 	speed_ = 2;
-	pFunc = &Enemy::Approach;
+	phase_ = PHASE::APPROACH;
 }
 
 void Enemy::Update()
 {
-	(this->*pFunc)();
+	(this->*pFunc[static_cast<size_t>(phase_)])();
 	bullet.Update();
 }
 
@@ -33,20 +40,20 @@ void Enemy::Approach()
 {
 	pos_.y += speed_;
 	if (pos_.y > 300) {
-		pFunc = &Enemy::Shot;
+		phase_ = PHASE::SHOT;
 	}
 }
 
 void Enemy::Shot()
 {
 	bullet.Initialize(pos_);
-	pFunc = &Enemy::Secession;
+	phase_ = PHASE::SECESSION;
 }
 
 void Enemy::Secession()
 {
 	pos_.y--;
 	if (pos_.y < 100) {
-		pFunc = &Enemy::Approach;
+		phase_ = PHASE::APPROACH;
 	}
 }
